@@ -1,0 +1,349 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> {% block title %}  {% endblock title %} |PG Space </title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block additional_styles %} {% endblock additional_styles %}
+  
+  
+ <!-- {% block css %}  {% endblock css %} -->
+ <!-- bootstrap -->
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+</head>
+
+<body>
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+
+    <div class="overlay" data-overlay></div>
+
+    <div class="header-bottom">
+      <div class="container">
+
+        <a href="#" class="logo">
+          <img src="{% static 'images/logo7.png' %}" alt="Rent Spotter logo">
+        </a>
+
+        <nav class="navbar" data-navbar>
+
+          <div class="navbar-top">
+
+            <a href="#" class="logo">
+              <img src="{% static 'images/logo6.png' %}" alt="Rent Spotter logo">
+            </a>
+
+            <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+          </div>
+
+          <div class="navbar-bottom">
+            <ul class="navbar-list">
+
+              <li>
+                <a href="/" class="navbar-link" data-nav-link>Home</a>
+              </li>
+
+              <li>
+                <a href="{% url 'about' %}" class="navbar-link" data-nav-link>About</a>
+              </li>
+
+              {% comment %} <li>
+                <a href="#service" class="navbar-link" data-nav-link>Service</a>
+              </li> {% endcomment %}
+
+
+              <li>
+                <a href="{% url 'contact' %}" class="navbar-link" data-nav-link>Contact</a>
+              </li>
+              
+              <li>
+                <a href="{% url 'search' %}" class="navbar-link" data-nav-link> 
+                  {% comment %} <ion-icon name="search-outline"></ion-icon>   {% endcomment %}
+                  search</a>
+              </li>
+
+            </ul>
+          </div>
+
+        </nav>
+
+        <div class="header-bottom-actions">
+
+          <!-- <button class="header-bottom-actions-btn" aria-label="Search">
+            <ion-icon name="search-outline"></ion-icon>
+
+            <span>Search</span>
+          </button> -->
+
+          <button class="header-bottom-actions-btn" aria-label="Profile">
+            <a href="/login"> <ion-icon name="person-outline"></ion-icon>login</a>
+            <span>Profile</span>
+          </button>
+
+          <!-- <button class="header-bottom-actions-btn" aria-label="Cart">
+            <ion-icon name="cart-outline"></ion-icon>
+
+            <span>Cart</span>
+          </button> -->
+
+          <!-- menu botton in mobile view -->
+          <button class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu">
+            <ion-icon name="menu-outline"></ion-icon>
+              <span>Menu</span>
+          </button>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </header>
+<!-- header part is over -->
+
+{% block body %}
+
+
+ 
+
+
+{% endblock body %}
+
+
+<!-- footer -->
+
+  <footer class="footer">
+
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <!-- <img src="{% static 'images/logo-light.png' %}" alt="Rent Spotter logo"> -->
+          </a>
+
+          <p class="section-text">
+            PG Space makes finding and renting a home easy with affordable, convenient living spaces for students, professionals, and newcomers to the city.
+          </p>
+
+          <ul class="contact-list">
+
+            <li>
+              <a href="#" class="contact-link">
+                <ion-icon name="location-outline"></ion-icon>
+
+                <address>Bhubaneswar, Odisha, India</address>
+              </a>
+            </li>
+
+
+            <!-- contact moble number -->
+            <li>
+              <a href="tel:7606891165" class="contact-link">
+                <ion-icon name="call-outline"></ion-icon>
+                <span>+91 7606891165</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:7606891165" class="contact-link">
+                <ion-icon name="call-outline"></ion-icon>
+                <span>+91 7606891165</span>
+              </a>
+            </li>
+          <!-- contact moble number -->
+
+
+            <li>
+              <a href="mailto:contact@rent s.com" class="contact-link">
+                <ion-icon name="mail-outline"></ion-icon>
+
+                <span>contact@pgspace.com</span>
+              </a>
+            </li>
+
+          </ul>
+
+
+          <!-- social media links -->
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+         <!-- social media links -->
+
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Company</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">About</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Blog</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Locations Map</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Contact us</a>
+            </li>
+
+          </ul>
+
+
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Services</p>
+            </li>
+
+            <li>
+              <a href="{% url 'login' %}" class="footer-link">Login</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">My account</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Terms & Conditions</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Promotional Offers</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Customer Care</p>
+            </li>
+
+            <li>
+              <a href="{% url 'login' %}" class="footer-link">Login</a>
+            </li>
+
+            <li>
+              <a href="{% url 'login' %}" class="footer-link">My account</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">FAQ</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Contact us</a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2025 <a href="#">PG Space </a>. All Rights Reserved
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="{% static 'js/script.js' %}"></script>
+  {% block additional_script %} {% endblock additional_script %}
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- bootstrap -->
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="sign-up">
+        <form>
+          <h1>Create Account</h1>
+          
+          <input type="text" placeholder="Name" name="username" />
+          <input type="text" placeholder="Email" name="email" />
+          <input type="Mobile Number" placeholder="Mobile Number" name="mobile_number"/>
+          <input type="password" placeholder="Password" name="password"/>
+          <button>Register</button>
+        </form>
+      </div>
+      <div class="sign-in">
+        <form>
+          <h1>Login</h1>
+          <input type="text" placeholder="User Name"  name="username"/>
+          <input type="password" placeholder="Password" name="password"/>
+          <a href="#">Forgot password?</a>
+          <button>Login</button>
+        </form>
+      </div>
+      <div class="toogle-container">
+        <div class="toogle">
+          <div class="toogle-panel toogle-left">
+            <h1>Welcome Back!</h1>
+            <p> Already have an account</p>
+            <button class="hidden" id="login">Login</button>
+          </div>
+          <div class="toogle-panel toogle-right">
+            <h1>Hello, Welcome👋</h1>
+            <p> Don't have an account</p>
+            <button class="hidden" id="register">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js/register.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,447 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock title %}
+
+{% block body %}
+
+{% load static %}
+<main>
+  <article>
+
+    <!-- 
+        - #HERO
+      -->
+
+    <section class="hero" id="home">
+      <div class="container">
+
+        <div class="hero-content">
+
+          <p class="hero-subtitle">
+            <ion-icon name="home"></ion-icon>
+
+            <span>Real Estate Agency</span>
+          </p>
+
+          <h2 class="h1 hero-title">Find Your Dream House By Us</h2>
+
+          <p class="hero-text">
+            PG Space makes finding and renting a home easy with affordable, convenient living spaces for students, professionals, and newcomers to the city.
+          </p>
+
+          <button class="btn">Getting Started</button>
+
+        </div>
+
+        <figure class="hero-banner">
+          <img src="{% static 'images/hero-banner.png' %}" alt="Modern house model" class="w-100">
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- 
+        - #SERVICE
+      -->
+
+    <section class="service" id="service">
+      <div class="container">
+
+        <p class="section-subtitle">Our Services</p>
+
+        <h2 class="h2 section-title">Our Main Focus</h2>
+
+        <ul class="service-list">
+
+          <li>
+            <div class="service-card">
+
+              <div class="card-icon">
+                <img src="{% static 'images/service-1.png' %}" alt="Service icon">
+              </div>
+
+              <h3 class="h3 card-title">
+                <a href="#">Buy a home</a>
+              </h3>
+
+              <p class="card-text">
+                over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                to call home.
+              </p>
+
+              <a href="#" class="card-link">
+                <span>Coming Soon</span>
+
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </a>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="service-card">
+
+              <div class="card-icon">
+                <img src="{% static 'images/service-2.png' %}" alt="Service icon">
+              </div>
+
+              <h3 class="h3 card-title">
+                <a href="{% url 'login' %}">Rent a home</a>
+              </h3>
+
+              <p class="card-text">
+                over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                to call home.
+              </p>
+
+              <a href="{% url 'search' %}" class="card-link">
+                <span>Find A Home</span>
+
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </a>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="service-card">
+
+              <div class="card-icon">
+                <img src="{% static 'images/service-3.png' %}" alt="Service icon">
+              </div>
+
+              <h3 class="h3 card-title">
+                <a href="#">Sell a home</a>
+              </h3>
+
+              <p class="card-text">
+                over 1 million+ homes for sale available on the website, we can match you with a house you will want
+                to call home.
+              </p>
+
+              <a href="#" class="card-link">
+                <span>Coming Soon</span>
+
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </a>
+
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </section>
+    <!-- 
+        - #PROPERTY
+      -->
+    <section class="property" id="property">
+      <div class="container">
+
+        <p class="section-subtitle">Properties</p>
+
+        <h2 class="h2 section-title">Featured Listings</h2>
+
+        <ul class="property-list has-scrollbar">
+          {% for user in users %}
+          <li>
+            <div class="property-card">
+
+              <figure class="card-banner">
+
+                <a href="{% url 'public_user_profile' user.user.username %}">
+                  <!-- <img src="{% static 'images/property-1.jpg' %}" alt="New Apartment Nice View" class="w-100"> -->
+                  {% if user.profile_photo %}
+                  <img class="user-photo" src="{% if user.profile_photo %}{{ user.profile_photo.url }}{% else %}{% static 'images/default-profile.jpeg' %}{% endif %}" alt="{{ user.user.username }}" class="w-100">
+
+                  {% else %}
+                  <span>No profile photo</span>
+                  {% endif %}
+                </a>
+
+                <div class="card-badge green">For Rent</div>
+
+                <div class="banner-actions">
+
+                  <button class="banner-actions-btn">
+                    <ion-icon name="location"></ion-icon>
+
+                    {% if user.location_info %}
+                    <address>{{ user.location_info }}</address>
+                    {% elif user.location_2 %}
+                    <address> {{ user.location_2 }} </address>
+                    {% else %}
+                    <p>Location information not available</p>
+                    {% endif %}
+                  </button>
+
+                  <button class="banner-actions-btn">
+                    <ion-icon name="camera"></ion-icon>
+
+                    <span> {{user.extra_photos_count}} </span>
+                  </button>
+
+
+
+                </div>
+
+              </figure>
+
+              <div class="card-content">
+
+                <div class="card-price">
+                  <strong>₹ {{ user.price }}</strong>/Month
+                </div>
+
+                <h3 class="h3 card-title">
+                  <a href="#">New Apartment Nice View</a>
+                </h3>
+
+                <p class="card-text">
+                  Beautiful Huge 1 Family House In Heart Of Westbury. Newly Renovated With New Wood
+                </p>
+
+                <ul class="card-list">
+
+                  <li class="card-item">
+                    <strong> {{user.bedroom}} </strong>
+
+                    <ion-icon name="bed-outline"></ion-icon>
+
+                    <span>Bedrooms</span>
+                  </li>
+
+                  <li class="card-item">
+                    <strong> {{user.hallroom}} </strong>
+
+                    <ion-icon name="man-outline"></ion-icon>
+
+                    <span>Hallrooms</span>
+                  </li>
+
+                  <li class="card-item">
+                    <strong> {{user.kitchen}} </strong>
+
+                    <ion-icon name="material-outline"></ion-icon>
+
+                    <span>Kitchen</span>
+
+                  </li>
+
+                </ul>
+
+              </div>
+
+
+
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- blog -->
+
+    <section class="blog" id="blog">
+      <div class="container">
+
+        <p class="section-subtitle">News & Blogs</p>
+
+        <h2 class="h2 section-title">Leatest News Feeds</h2>
+
+        <ul class="blog-list has-scrollbar">
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner">
+                <img src="{% static 'images/blog-1.png' %}" alt="The Most Inspiring Interior Design Of 2021"
+                  class="w-100">
+              </figure>
+
+              <div class="blog-content">
+
+                <div class="blog-content-top">
+
+                  <ul class="card-meta-list">
+
+                    <li>
+                      <a href="#" class="card-meta-link">
+                        <ion-icon name="person"></ion-icon>
+
+                        <span>by: Admin</span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="card-meta-link">
+                        <ion-icon name="pricetags"></ion-icon>
+                        <span>Interior</span>
+                      </a>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h3 blog-title">
+                    <a href="#">The Most Inspiring Interior Design Of 2021</a>
+                  </h3>
+                </div>
+                <div class="blog-content-bottom">
+                  <div class="publish-date">
+                    <ion-icon name="calendar"></ion-icon>
+
+                    <time datetime="2022-27-04">Apr 27, 2022</time>
+                  </div>
+                  <a href="#" class="read-more-btn">Read More</a>
+                </div>
+
+              </div>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner">
+                <img src="{% static 'images/blog-2.jpg' %}" alt="Recent Commercial Real Estate Transactions"
+                  class="w-100">
+              </figure>
+
+              <div class="blog-content">
+
+                <div class="blog-content-top">
+
+                  <ul class="card-meta-list">
+
+                    <li>
+                      <a href="#" class="card-meta-link">
+                        <ion-icon name="person"></ion-icon>
+
+                        <span>by: Admin</span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="card-meta-link">
+                        <ion-icon name="pricetags"></ion-icon>
+
+                        <span>Estate</span>
+                      </a>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h3 blog-title">
+                    <a href="#">Recent Commercial Real Estate Transactions</a>
+                  </h3>
+
+                </div>
+
+                <div class="blog-content-bottom">
+                  <div class="publish-date">
+                    <ion-icon name="calendar"></ion-icon>
+
+                    <time datetime="2022-27-04">Apr 27, 2022</time>
+                  </div>
+
+                  <a href="#" class="read-more-btn">Read More</a>
+                </div>
+
+              </div>
+
+            </div>
+          </li>
+
+          <li>
+            <div class="blog-card">
+
+              <figure class="card-banner">
+                <img src="{% static 'images/blog-3.jpg' %}" alt="Renovating a Living Room? Experts Share Their Secrets"
+                  class="w-100">
+              </figure>
+
+              <div class="blog-content">
+
+                <div class="blog-content-top">
+
+                  <ul class="card-meta-list">
+
+                    <li>
+                      <a href="#" class="card-meta-link">
+                        <ion-icon name="person"></ion-icon>
+
+                        <span>by: Admin</span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="card-meta-link">
+                        <ion-icon name="pricetags"></ion-icon>
+
+                        <span>Room</span>
+                      </a>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h3 blog-title">
+                    <a href="#">Renovating a Living Room? Experts Share Their Secrets</a>
+                  </h3>
+
+                </div>
+
+                <div class="blog-content-bottom">
+                  <div class="publish-date">
+                    <ion-icon name="calendar"></ion-icon>
+                    <time datetime="2022-27-04">Apr 27, 2022</time>
+                  </div>
+
+                  <a href="#" class="read-more-btn">Read More</a>
+                </div>
+
+              </div>
+
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </section>
+
+
+
+
+
+    <!-- 
+        - #CTA
+      -->
+
+    <section class="cta">
+      <div class="container">
+
+        <div class="cta-card">
+          <div class="card-content">
+            <h2 class="h2 card-title">Looking for a dream home?</h2>
+
+            <p class="card-text">We can help you realize your dream of a new home</p>
+          </div>
+
+          <button class="btn cta-btn">
+            <a href="{% url 'search' %}" class="navbar-link" data-nav-linkcl> 
+            <span>Explore Properties</span>
+
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </article>
+</main>
+
+
+{% endblock body %}

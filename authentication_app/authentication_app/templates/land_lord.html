@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Form</title>
+    <link rel="stylesheet" href="{% static 'css/land_lord.css' %}" />
+    <style>
+      .image-preview {
+        margin-top: 8px;
+        /* Reduced margin */
+        display: flex;
+        gap: 8px;
+        /* Reduced gap */
+        flex-wrap: wrap;
+      }
+
+      .image-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .image-container img {
+        width: 60px;
+        /* Reduced width */
+        height: 60px;
+        /* Reduced height */
+        object-fit: cover;
+        border-radius: 6px;
+        /* Slightly smaller border radius */
+        border: 5px solid #ccc;
+        /* Slightly lighter border */
+      }
+
+      .delete-btn {
+        position: absolute;
+        top: -6px;
+        /* Adjusted position */
+        right: -6px;
+        background: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 10px;
+        /* Reduced size */
+        height: 10px;
+        border-radius: 50%;
+        font-size: 12px;
+        /* Slightly smaller font */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hed"></div>
+    <div class="form-container">
+      <h2>Welcome, {{ user_profile.user.username }}!</h2>
+      
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="bio">Enter your privacy policy in details:</label>
+        <textarea
+          rows="6"
+          name="bio"
+          cols="50"
+          placeholder="Write your privacy policy here..."
+          style="resize: vertical; width: 100%; height: 60px"
+        >
+{{ user_profile.bio }}</textarea
+        >
+
+        <label for="Price"></label>
+        <input
+          type="number"
+          name="price"
+          value="{% if user_profile.price == 0 %}{{ user_profile.price|default:'' }}{% else %}{{ user_profile.price }}{% endif %}"
+          placeholder="Price"
+        />
+
+        <label for="profile_photo">Update House main Photo:</label>
+        <input
+          type="file"
+          name="profile_photos"
+          id="mainPhotoInput"
+          accept="image/*"
+        />
+        <div class="image-preview" id="mainPhotoPreview"></div>
+
+        <label for="extra_photos"
+          >Add all bedroom, hall room, kitchen room, and bathroom Photos:</label
+        >
+        <input
+          type="file"
+          name="extra_photos"
+          id="multiPhotoInput"
+          multiple
+          accept="image/*"
+        />
+        <div class="image-preview" id="multiPhotoPreview"></div>
+
+        <label for="bedroom"></label>
+        <input
+          type="number"
+          name="bedroom"
+          value="{% if user_profile.bedroom == 0 %}{{ user_profile.bedroom|default:'' }}{% else %}{{ user_profile.bedroom }}{% endif %}"
+          placeholder="Enter your number of bedrooms"
+        />
+
+        <label for="hallroom"></label>
+        <input
+          type="number"
+          name="hallroom"
+          value="{% if user_profile.hallroom == 0 %}{{ user_profile.hallroom|default:'' }}{% else %}{{ user_profile.hallroom }}{% endif %}"
+          placeholder="Enter your number of hall rooms"
+        />
+
+        <label for="kitchen"></label>
+        <input
+          type="number"
+          name="kitchen"
+          value="{% if user_profile.kitchen == 0 %}{{ user_profile.kitchen|default:'' }}{% else %}{{ user_profile.kitchen }}{% endif %}"
+          placeholder="Enter your number of kitchens"
+        />
+
+        <label for="city"></label>
+        <input type="text" name="city" placeholder="Enter your city" />
+
+        <label for="state"></label>
+        <input type="text" name="state" placeholder="Enter your state" />
+
+        <label for="pin"></label>
+        <input type="number" name="pin" placeholder="Enter your pincode" />
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    {% if success %}
+<script>
+  alert("Data saved successfully!");
+</script>
+{% endif %}
+    <script>
+      
+      function previewImage(input, previewDiv) {
+        const preview = document.getElementById(previewDiv);
+        const files = input.files;
+
+        if (files) {
+          Array.from(files).forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const imageContainer = document.createElement("div");
+              imageContainer.classList.add("image-container");
+
+              const img = document.createElement("img");
+              img.src = e.target.result;
+
+              const deleteBtn = document.createElement("button");
+              deleteBtn.innerHTML = "×";
+              deleteBtn.classList.add("delete-btn");
+              deleteBtn.addEventListener("click", function () {
+                imageContainer.remove();
+              });
+
+              imageContainer.appendChild(img);
+              imageContainer.appendChild(deleteBtn);
+              preview.appendChild(imageContainer);
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      }
+
+      document
+        .getElementById("mainPhotoInput")
+        .addEventListener("change", function () {
+          previewImage(this, "mainPhotoPreview");
+        });
+
+      document
+        .getElementById("multiPhotoInput")
+        .addEventListener("change", function () {
+          previewImage(this, "multiPhotoPreview");
+        });
+    </script>
+  </body>
+</html>

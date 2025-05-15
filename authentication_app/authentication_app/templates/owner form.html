@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Form</title>
+</head>
+<body>
+    <h1>Rental Form </h1>
+    <form action="#" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+        <br><br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+        <br><br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+        <br><br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+        <br><br>
+
+        <label for="money">Rental Price (₹) :</label>
+        <input type="number" id="money" name="money" placeholder="Enter rental price" required>
+        <br><br>
+
+        <label for="location">Location OF Property &#x1F4CD;:</label>
+        <input type="text" id="location" name="location" placeholder="Enter rental location" required>
+        <br><br>
+
+        <label for="details">Details:</label><br>
+        <textarea id="details" name="details" rows="4" placeholder="Enter at least 10 words about your Property" required></textarea>
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            var detailsInput = document.getElementById('details');
+            var detailsValue = detailsInput.value.trim().split(/\s+/);
+            if (detailsValue.length < 10) {
+                alert('Please enter at least 10 words in the "Details" field.');
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+    </script>
+</body>
+</html>

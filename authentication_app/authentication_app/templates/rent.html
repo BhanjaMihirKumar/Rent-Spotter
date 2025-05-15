@@ -1,0 +1,403 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/newstyle.css' %}">
+
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <i class="fas fa-building"></i>
+            <span class="brand">RentHouse</span>
+        </div>
+        <nav class="nav-center">
+            <a href="/">Home</a>
+            <a href="#properties">Properties</a>
+            <a href="#contact">Contact</a>
+            <a href="{% url 'search' %}">Search</a>
+        </nav>
+        <div class="nav-right">
+
+            <a href="/login" class="signin">Sign In</a>
+            <a href="/register" class="signup">Sign Up</a>
+        </div>
+    </header>
+    <!-- home -->
+    <section class="home">
+        <div class="top"></div>
+        <div class="overlay">
+            <div class="container">
+                <div class="heading">Find Your Perfect Rental Home Today</div>
+                <div class="subheading">Discover thousands of rental properties in your area with our easy-to-use
+                    platform.
+                    Your dream home is just a few clicks away.</div>
+            </div>
+            <div class="search-box">
+                <h2>Find Your Dream Home &#127968;
+                </h2>
+                <p>Search properties in your area</p>
+
+                <!-- <div class="tabs">
+    <button>Rent</button>
+    <button>Buy</button>
+  </div> -->
+
+                <div class="filters">
+                   
+                    <form method="get" action="{% url 'search' %}" class="search-form">
+                        <select>
+                            <option value="" disabled selected hidden>Property Type</option>
+                            <option>Apartment</option>
+                            <option>House</option>
+                            <option>Single Room</option>
+                            <option>Double Room</option>
+                        </select>
+                        <select name="price_range" class="search-input">
+                            <option value="" selected hidden>Price</option>
+                            <option value="18000-20000">&#8377;5000 - &#8377;10000</option>
+                            <option value="5000-8000">&#8377;2600 - &#8377;5000</option>
+                            <option value="1800-2000">&#8377;1800 - &#8377;2100</option>
+                            <option value="2100-2500">&#8377;2100 - &#8377;2500</option>
+                        </select>
+                        <input type="text" name="q" placeholder="Search by city, pin code, or address"
+                        class="search-input" required />
+
+
+                        <button type="submit" class="search-button">Search Properties</button>
+                    </form>
+                </div>
+
+                <!-- <button class="search-button">Search Properties</button> -->
+
+                <div class="stats">
+                    <div class="stat-item">25 Apartments</div>
+                    <div class="stat-item">67 Houses</div>
+                    <div class="stat-item">89 Single Room</div>
+                    <div class="stat-item">123 Double Room</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- home end -->
+    <!-- features  properties -->
+
+
+
+    <section class="property-section" id="properties">
+        <div class="container">
+            <h1 class="section-title">Featured Rental Properties</h1>
+            <p class="section-subtitle">Browse our selection of handpicked properties available for rent in your area
+            </p>
+
+            <div class="card-wrapper">
+                {% for user in users %}
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-image">
+                        <span class="badge">Featured</span>
+                        {% if user.profile_photo %}
+                        <img class="user-photo"
+                            src="{% if user.profile_photo %}{{ user.profile_photo.url }}{% else %}{% static 'images/default-profile.jpeg' %}{% endif %}"
+                            alt="{{ user.user.username }}" class="w-100">
+
+                        {% else %}
+                        <span>No profile photo</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Modern Apartment</h3>
+                            <span class="price">₹ {{ user.price }} /mo</span>
+                        </div>
+                        <p class="location">📍 {% if user.location_info %}
+                            {{ user.location_info }}
+                            {% elif user.location_2 %}
+                            {{ user.location_2 }}
+                            {% else %}
+                        <p>Location information not available</p>
+                        {% endif %}</p>
+                        <div class="details">
+                            <span>{{user.bedroom}} Beds</span>
+                            <span>{{user.hallroom}} Hall rooms</span>
+                            <span>{{user.kitchen}} kitchen</span>
+                        </div>
+                        <a href="{% url 'public_user_profile' user.user.username %}">
+                            <button class="view-button">View Details</button>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Feature End -->
+    <!-- How It Works Section -->
+    <section class="py-12 text-center">
+        <h2 class="text-4xl font-bold text-gray-900">How It Works</h2>
+        <p class="text-lg text-gray-600 mt-2">
+            Finding your perfect rental home is easy with our simple process
+        </p>
+
+        <div class="relative mt-16 flex justify-center items-start gap-24">
+            <!-- Connecting Line (Centered between icons) -->
+            <div class="absolute top-1/2 left-[12%] right-[12%] h-1 bg-teal-100 z-0 transform -translate-y-1/2"></div>
+
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center z-10">
+                <div
+                    class="bg-teal-100 rounded-full w-10 h-10 flex items-center justify-center text-teal-600 font-bold">
+                    1</div>
+                <div class="bg-teal-50 rounded-full w-20 h-20 flex items-center justify-center mt-4">
+                    <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-xl mt-4">Search Properties</h3>
+                <p class="text-gray-500 max-w-xs mt-2">Browse thousands of listings with detailed filters to find your
+                    perfect match</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center z-10">
+                <div
+                    class="bg-teal-100 rounded-full w-10 h-10 flex items-center justify-center text-teal-600 font-bold">
+                    2</div>
+                <div class="bg-teal-50 rounded-full w-20 h-20 flex items-center justify-center mt-4">
+                    <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 6h18M3 14h18M3 18h18" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-xl mt-4">Schedule Viewings</h3>
+                <p class="text-gray-500 max-w-xs mt-2">Book appointments online to view properties at your convenience
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center z-10">
+                <div
+                    class="bg-teal-100 rounded-full w-10 h-10 flex items-center justify-center text-teal-600 font-bold">
+                    3</div>
+                <div class="bg-teal-50 rounded-full w-20 h-20 flex items-center justify-center mt-4">
+                    <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-xl mt-4">Move In</h3>
+                <p class="text-gray-500 max-w-xs mt-2">Complete the rental agreement online and get ready to move into
+                    your new home</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action -->
+    <section class="bg-teal-700 text-white py-12 text-center">
+        <h2 class="text-3xl font-bold mb-2">Ready to Find Your Perfect Home?</h2>
+        <p class="text-lg mb-6">Join thousands of happy renters who found their home with us</p>
+        <div class="flex justify-center gap-4">
+            <a href="{% url 'search' %}">
+                <button
+                    class="bg-white text-teal-700 px-6 py-2 rounded-md font-semibold hover:bg-gray-100 transition">Browse
+                    Properties</button></a>
+            <a href="/register">
+                <button class="bg-teal-900 px-6 py-2 rounded-md font-semibold hover:bg-teal-800 transition">Create
+                    Account</button></a>
+        </div>
+    </section>
+    <!-- Cutomer  -->
+    <section class="testimonials-section">
+        <h2>What Our Customers Say</h2>
+        <p>Hear from people who have found their perfect rental home through our platform</p>
+
+        <div class="testimonials-grid">
+
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <div class="avatar">JD</div>
+                    <div class="user-details">
+                        <h4>John Doe</h4>
+                        <p>Rented in Downtown</p>
+                    </div>
+                </div>
+                <div class="stars">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <p class="testimonial-text">
+                    "I found my dream apartment in just a few days. The process was smooth and the customer service was
+                    excellent. Highly recommended!"
+                </p>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <div class="avatar">SM</div>
+                    <div class="user-details">
+                        <h4>Sarah Miller</h4>
+                        <p>Rented in Westside</p>
+                    </div>
+                </div>
+                <div class="stars">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span class="inactive">★</span>
+                </div>
+                <p class="testimonial-text">
+                    "The platform made it so easy to find exactly what I was looking for. I could filter by all my
+                    requirements and found the perfect place."
+                </p>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <div class="avatar">AK</div>
+                    <div class="user-details">
+                        <h4>Alex Kim</h4>
+                        <p>Rented in Uptown</p>
+                    </div>
+                </div>
+                <div class="stars">
+                    <span>★</span><span class="inactive">★</span><span class="inactive">★</span><span
+                        class="inactive">★</span><span class="inactive">★</span>
+                </div>
+                <p class="testimonial-text">
+                    "After months of searching on my own, I tried this platform and found a great rental within a week.
+                    The virtual tours saved me so much time and the application process was seamless."
+                </p>
+            </div>
+
+        </div>
+    </section>
+    <!-- Customer End   -->
+    <!-- Contact  -->
+    <section class="contact-container" id="contact">
+        <div class="contact-box">
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p>Have questions about renting? Our team is here to help you find the perfect home. Reach out to us
+                    anytime.</p>
+                <div class="info-item">
+                    <div class="icon-circle">
+                        <i class="fas fa-location-dot"></i>
+                    </div>
+                    <span>23 Main Street, Balasore, India</span>
+                </div>
+                <div class="info-item">
+                    <div class="icon-circle">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <span>+91 7847093057</span>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required />
+                <input type="email" placeholder="Email Address" required />
+                <input type="tel" placeholder="Phone Number" />
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- fotter -->
+    <footer class="bg-white border-t border-gray-200">
+        <div
+            class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-gray-600">
+
+            <!-- RentHouse Section -->
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" stroke-width="1.5"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 10.5V6.75A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v3.75M3 10.5h18M3 10.5v6.75A2.25 2.25 0 005.25 19.5h13.5A2.25 2.25 0 0021 17.25V10.5M9 15h.008v.008H9V15zm3 0h.008v.008H12V15zm3 0h.008v.008H15V15z" />
+                    </svg>
+                    <span class="text-lg font-semibold text-gray-900">RentHouse</span>
+                </div>
+                <p class="mb-4">Your trusted partner in finding the perfect rental home since 2010.</p>
+                <div class="flex gap-4 text-gray-500">
+                    <a href="#" class="hover:text-black"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-black"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-black"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-black"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-gray-900 font-semibold mb-2">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-black">Home</a></li>
+                    <li><a href="#" class="hover:text-black">Properties</a></li>
+                    <li><a href="#" class="hover:text-black">About Us</a></li>
+                    <li><a href="#" class="hover:text-black">Services</a></li>
+                    <li><a href="#" class="hover:text-black">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- For Tenants -->
+            <div>
+                <h3 class="text-gray-900 font-semibold mb-2">For Tenants</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-black">Find a Rental</a></li>
+                    <li><a href="#" class="hover:text-black">How It Works</a></li>
+                    <li><a href="#" class="hover:text-black">Tenant Resources</a></li>
+                    <li><a href="#" class="hover:text-black">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- For Property Owners -->
+            <div>
+                <h3 class="text-gray-900 font-semibold mb-2">For Property Owners</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-black">List Your Property</a></li>
+                    <li><a href="#" class="hover:text-black">Owner Resources</a></li>
+                    <li><a href="#" class="hover:text-black">Pricing</a></li>
+                    <li><a href="#" class="hover:text-black">Owner FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-200 mt-8">
+            <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between text-xs text-gray-500">
+                <p>© 2025 RentHouse. All rights reserved.</p>
+                <div class="flex gap-4 mt-2 sm:mt-0">
+                    <a href="#" class="hover:text-black">Terms of Service</a>
+                    <a href="#" class="hover:text-black">Privacy Policy</a>
+                    <a href="#" class="hover:text-black">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- fotter end   -->
+
+</body>
+
+</html>
